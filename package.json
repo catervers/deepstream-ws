@@ -19,6 +19,11 @@
   "homepage": "https://github.com/neurogas/deepstream-ws#readme",
   "dependencies": {
     "axios": "^0.15.3",
-    "deepstream.io-client-js": "^2.1.1"
+    "deepstream.io-client-js": "^2.1.1",
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "lodash": "*",
+    "method-override": "~2.1.2",
+    "morgan": "~1.2.2"
   }
 }
