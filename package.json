@@ -19,7 +19,6 @@
   "homepage": "https://github.com/neurogas/deepstream-ws#readme",
   "dependencies": {
     "axios": "^0.15.3",
-    "child_process": "^1.0.2",
     "deepstream.io-client-js": "^2.1.1"
   }
 }
