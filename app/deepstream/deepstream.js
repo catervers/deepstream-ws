@@ -2,7 +2,10 @@
  * Created by andream16 on 28.01.17.
  */
 var deepstream = require('deepstream.io-client-js');
+var axios = require('axios');
 var deepstreamClient;
+
+var config = require('../../env.json');
 
 /** Methods available to external usage **/
 exports.subscribe = subscribe;
@@ -32,6 +35,13 @@ function subscribe(channel, optional) {
     deepstreamChannels.push(path);
     deepstreamClient.event.subscribe(path, function (payload) {
         console.log(path + ": " + JSON.stringify(payload));
+        axios.post(config.hooks+path, JSON.stringify(payload))
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     });
     return "subscribed to: " + path;
 }
