@@ -1,6 +1,9 @@
 # deepstream-ws
 This connector allow to access deepstream events API in a REST api way
 
+## Disclaimer
+This project is the result of a boring saturday evening, it's offered as is.
+
 ## Basic concepts
 Deepstream provides and easy way to do publish-subscribe, this connector uses the concept of **path**,
  there's some examples of valid values:
