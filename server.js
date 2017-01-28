@@ -20,7 +20,6 @@ app.use(methodOverride());
 require('./app/routes/inboud-routes.js')(app);
 global._        = _; //lodash
 
-var channels = [];
 Deepstream.login(config.deepstream);
 
 // Listen

@@ -3,19 +3,6 @@
  */
 var Deepstream = require('../deepstream/deepstream.js');
 
-/*
- Inbound api:
- POST: /subscriptions/>CHANNEL-NAME<
- BODY-OPTIONAL: hook url
- DELETE: /subscriptions/>CHANNEL-NAME<
- POST: /emit/>CHANNEL-NAME<
- BODY: >PAYLOAD<
-
- Outbound calls:
- POST: /event/>CHANNEL-NAME< (slashes should be replaced with underscores)
- BODY: >PAYLOAD<
- */
-
 //Listening to events
 module.exports = function (app) {
 
