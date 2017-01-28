@@ -3,23 +3,24 @@
  */
 var deepstream = require('deepstream.io-client-js');
 var deepstreamClient;
-var deepstreamChannels = require('../../server');
 
 /** Methods available to external usage **/
 exports.subscribe         = subscribe;
 exports.emit              = emit;
 exports.unsubscribe       = unsubscribe;
 exports.getActiveChannels = getActiveChannels;
+exports.login             = login;
 
+var channels = [];
 
-function login(server,optionals) {
+function login( server, optionals) {
     deepstreamClient = deepstream(server).login();
 }
 
 /** Function Called to subscribe to an event **/
-function subscribe(channel) {
+function subscribe(channel, optional) {
     return new Promise(function (res, rej) {
-        if(_.isUndefined(event)){
+        if(_.isUndefined(channel)){
             return rej({err : 'No channel Specified in the Request'});
         }
         deepstreamClient.channel.subscribe( channel, function( err, payload ){
@@ -27,7 +28,7 @@ function subscribe(channel) {
               return rej({err : err});
             }
             console.log( channel+": "+payload );
-            deepstreamChannels.channels.push(channel);
+            channels.push(channel);
             return res({success: 'Successfully Subscribed to '+ channel});
         });
     });
@@ -58,7 +59,7 @@ function unsubscribe(event) {
             if(err){
                 return rej({err: err})
             }
-            deepstreamChannels.channels.delete(channel);
+            channels.delete(channel);
             return res({success: response})
         });
     });

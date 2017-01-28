@@ -20,8 +20,8 @@ var Deepstream = require('../deepstream/deepstream.js');
 module.exports = function (app) {
 
     /** Subscribing to a channel **/
-    app.post('/subscriptions/:channel/:optional', function(channel, res) {
-        Deepstream.subscribe(channel).then( function (response) {
+    app.post('/subscriptions/:channel/:optional', function(req, res) {
+        Deepstream.subscribe(req.params.channel, req.params.optional).then( function (response) {
           res.json(response);
         }).catch(function (err) {
            res.json(err);
@@ -37,15 +37,16 @@ module.exports = function (app) {
         });
     });
 
-
+    /** Emit an event on a channel **/
     app.post('/emit/:channel/:optional', function(req, res) {
-        Deepstream.subscribe(req).then( function (response) {
+        Deepstream.subscribe(req.params.channel, req.params.optional).then( function (response) {
             res.json(response);
         }).catch(function (err) {
             res.json(err);
         });
     });
 
+    /** get All Active Channels **/
     app.get('/subscriptions', function (req, res) {
       return res(Deepstream.getActiveChannels());
     });
