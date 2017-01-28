@@ -29,15 +29,16 @@ function pathBuilder(channel, optional) {
 function subscribe(channel, optional) {
     var path = pathBuilder(channel, optional);
     var index = deepstreamChannels.indexOf(path);
-    if (index < 0) {
+    if (index >= 0) {
         return "already subscribed to: " + path;
     }
+
     deepstreamChannels.push(path);
     deepstreamClient.event.subscribe(path, function (payload) {
         console.log(path + ": " + JSON.stringify(payload));
         axios.post(config.hooks+path, JSON.stringify(payload))
             .then(function (response) {
-                console.log(response);
+                console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
