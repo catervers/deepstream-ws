@@ -1,0 +1,29 @@
+{
+  "name": "deepstream-ws",
+  "version": "0.0.1",
+  "description": "A simple webservice like connector for deepstream",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neurogas/deepstream-ws.git"
+  },
+  "keywords": [
+    "deepstream",
+    "events"
+  ],
+  "author": "catervers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neurogas/deepstream-ws/issues"
+  },
+  "homepage": "https://github.com/neurogas/deepstream-ws#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "deepstream.io-client-js": "^2.1.1",
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "lodash": "*",
+    "method-override": "~2.1.2",
+    "morgan": "~1.2.2"
+  }
+}
