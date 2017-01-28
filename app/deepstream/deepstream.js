@@ -67,5 +67,5 @@ function unsubscribe(event) {
 
 /** Function Called to get all active channels **/
 function getActiveChannels() {
-   return JSON.stringify(deepstreamChannels.channels);
+   return channels;
 }

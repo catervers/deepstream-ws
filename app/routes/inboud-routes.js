@@ -48,7 +48,7 @@ module.exports = function (app) {
 
     /** get All Active Channels **/
     app.get('/subscriptions', function (req, res) {
-      return res(Deepstream.getActiveChannels());
+      res.json(Deepstream.getActiveChannels());
     });
 
 };
