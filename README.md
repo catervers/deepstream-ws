@@ -15,18 +15,18 @@ Notice how the second value is optional
 - run ```npm install```
 - rename ```env.json.example``` to ```env.json``` and configure it to match your infrastructure
 - run it ```node server.js```
+- implement on the **hooks** server the following route: ```POST ../{path}/{opt_path?}``` that will receive the payloads in the post body
 
 ## API
 
-### Subscribe to a new Channel
-`POST http://localhost:1232/subscriptions/{channelName}` : *"subscribed to: channelName"*
-### Unsubscribe from a Channel
-`DELETE http://localhost:1232/unsubscribe/{channelName}` : *"unsubscribed from: channelName"*
-### Emit an event on a Channel
-`POST http://localhost:1232/emit/{channelName}/{:body}` : *"emitted: channelName/body"*
-You can also post objects inside the body, e.g.: "obj1" : "Hello", "obj2" : "World!"
-### Get All Active Channels
-`GET http://localhost:1232/subscriptions` : *["channel1", "channel2"]*
+### Subscribe to a path
+`POST /subscriptions/{pathName}` : *"subscribed to: pathName"*
+### Unsubscribe from a path
+`DELETE /unsubscribe/{pathName}` : *"unsubscribed from: pathName"*
+### Emit an event on a path (the body will be the payload)
+`POST /emit/{pathName}` : *"emitted: pathName"*
+### Get All Active paths
+`GET /subscriptions` : *["channel1", "channel2"]*
 
 ### License
 MIT
