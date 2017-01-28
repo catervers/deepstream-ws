@@ -5,67 +5,51 @@ var deepstream = require('deepstream.io-client-js');
 var deepstreamClient;
 
 /** Methods available to external usage **/
-exports.subscribe         = subscribe;
-exports.emit              = emit;
-exports.unsubscribe       = unsubscribe;
+exports.subscribe = subscribe;
+exports.emit = emit;
+exports.unsubscribe = unsubscribe;
 exports.getActiveChannels = getActiveChannels;
-exports.login             = login;
+exports.login = login;
 
-var channels = [];
+var deepstreamChannels = [];
 
-function login( server, optionals) {
+function login(server, optionals) {
     deepstreamClient = deepstream(server).login();
+    console.log("Logged to deepstream server");
+}
+
+function pathBuilder(channel, optional) {
+    return channel + (_.isUndefined(optional) ? "" : "/" + optional);
 }
 
 /** Function Called to subscribe to an event **/
 function subscribe(channel, optional) {
-    return new Promise(function (res, rej) {
-        if(_.isUndefined(channel)){
-            return rej({err : 'No channel Specified in the Request'});
-        }
-        deepstreamClient.channel.subscribe( channel, function( err, payload ){
-            if(err){
-              return rej({err : err});
-            }
-            console.log( channel+": "+payload );
-            channels.push(channel);
-            return res({success: 'Successfully Subscribed to '+ channel});
-        });
+    var path = pathBuilder(channel, optional);
+    deepstreamChannels.push(path);
+    deepstreamClient.channel.subscribe(path, function (payload) {
+        console.log(path + ": " + payload);
     });
-}
-
-/** Function Called to emit to an event **/
-function emit(event, payload) {
-    return new Promise( function (res, rej) {
-        if(_.isUndefined(event) || _.isUndefined(payload)){
-            return rej({err: 'Unable to emit an event, event or payload are undefined'});
-        }
-        deepstreamClient.event.emit(event, payload, function ( err, payload ) {
-          if(err){
-              return rej({err: err})
-          }
-          return res({success: payload})
-        });
-    });
+    console.log("subscribed to: " + path);
 }
 
 /** Function Called to subscribe to an event **/
-function unsubscribe(event) {
-    return new Promise( function (res, rej) {
-        if(_.isUndefined(event)){
-            return rej({err: 'No error specified in the Request'});
-        }
-        deepstreamClient.event.unsubscribe(event, function(err, response){
-            if(err){
-                return rej({err: err})
-            }
-            channels.delete(channel);
-            return res({success: response})
-        });
-    });
+function unsubscribe(channel, optional) {
+    var path = pathBuilder(channel, optional);
+    var index = deepstreamChannels.indexOf(path);
+    if (index >= 0) {
+        deepstreamChannels.splice(index, 1);
+    }
+    deepstreamClient.channel.unsubscribe(path);
+    console.log("unsubscribed from: " + path);
+}
+
+/** Function Called to emit to an event **/
+function emit(path, payload) {
+    deepstreamClient.event.emit(path, payload);
+    console.log("emitted: "+path + ": " + payload);
 }
 
 /** Function Called to get all active channels **/
 function getActiveChannels() {
-   return channels;
+    return deepstreamChannels;
 }
