@@ -20,7 +20,7 @@ var Deepstream = require('../deepstream/deepstream.js');
 module.exports = function (app) {
 
     /** Subscribing to a channel **/
-    app.post('/subscriptions', function(channel, res) {
+    app.post('/subscriptions/:channel/:optional', function(channel, res) {
         Deepstream.subscribe(channel).then( function (response) {
           res.json(response);
         }).catch(function (err) {
@@ -29,7 +29,7 @@ module.exports = function (app) {
     });
 
     /** Unsubscribing to a channel **/
-    app.delete('/subscriptions', function(channel, res) {
+    app.delete('/subscriptions/:channel/:optional', function(channel, res) {
         Deepstream.unsubscribe(channel).then( function (response) {
             res.json(response);
         }).catch(function (err) {
@@ -38,7 +38,7 @@ module.exports = function (app) {
     });
 
 
-    app.post('/emit/channel/:optional', function(req, res) {
+    app.post('/emit/:channel/:optional', function(req, res) {
         Deepstream.subscribe(req).then( function (response) {
             res.json(response);
         }).catch(function (err) {
@@ -46,7 +46,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/subscriptions', function (res) {
+    app.get('/subscriptions', function (req, res) {
       return res(Deepstream.getActiveChannels());
     });
 

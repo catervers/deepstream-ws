@@ -1,13 +1,20 @@
 /**
  * Created by andream16 on 28.01.17.
  */
-var deepstreamChannels = require('/server');
+var deepstream = require('deepstream.io-client-js');
+var deepstreamClient;
+var deepstreamChannels = require('../../server');
 
 /** Methods available to external usage **/
 exports.subscribe         = subscribe;
 exports.emit              = emit;
 exports.unsubscribe       = unsubscribe;
 exports.getActiveChannels = getActiveChannels;
+
+
+function login(server,optionals) {
+    deepstreamClient = deepstream(server).login();
+}
 
 /** Function Called to subscribe to an event **/
 function subscribe(channel) {

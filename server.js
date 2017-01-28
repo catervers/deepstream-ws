@@ -1,6 +1,5 @@
 // Load env config
 var config         = require('./env.json'),
-    deepstream     = require('deepstream.io-client-js'),
     express        = require('express'),
     port           = config.port,
     morgan         = require('morgan'),
@@ -8,6 +7,8 @@ var config         = require('./env.json'),
     methodOverride = require('method-override'),
     _              = require('lodash'),
     app            = express();
+
+var Deepstream = require('./app/deepstream/deepstream.js');
 
 app.use(morgan('dev'));                                         // log with Morgan
 app.use(bodyParser.json());                                     // parse application/json
@@ -20,7 +21,7 @@ require('./app/routes/inboud-routes.js')(app);
 global._        = _; //lodash
 
 var channels = [];
-var deepstreamClient = deepstream(config.deepstream).login();
+Deepstream.login(config.deepstream);
 
 // Listen
 // -------------------------------------------------------
