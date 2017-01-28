@@ -12,5 +12,18 @@ function subscribe(event) {
 }
 
 function emit(event,payload) {
-    client.event.emit(event, payload);
+    deepstreamClient.event.emit(event, payload);
 }
+
+/*
+    Inbound api:
+    POST: /subscriptions/>CHANNEL-NAME<
+         BODY-OPTIONAL: hook url
+    DELETE: /subscriptions/>CHANNEL-NAME<
+    POST: /emit/>CHANNEL-NAME<
+        BODY: >PAYLOAD<
+
+    Outbound calls:
+    POST: /event/>CHANNEL-NAME< (slashes should be replaced with underscores)
+        BODY: >PAYLOAD<
+ */
