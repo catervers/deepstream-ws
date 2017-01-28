@@ -2,7 +2,7 @@
 var config         = require('./env.json'),
     deepstream     = require('deepstream.io-client-js'),
     express        = require('express'),
-    port           = process.env.PORT || 3000,
+    port           = config.port,
     morgan         = require('morgan'),
     bodyParser     = require('body-parser'),
     methodOverride = require('method-override'),
