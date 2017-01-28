@@ -1,7 +1,7 @@
 /**
  * Created by andream16 on 28.01.17.
  */
-var Deepstream = require('./deepstream/deepstream.js');
+var Deepstream = require('../deepstream/deepstream.js');
 
 /*
  Inbound api:

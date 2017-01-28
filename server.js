@@ -16,7 +16,7 @@ app.use(bodyParser.text());                                     // allows bodyPa
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));  // parse application/vnd.api+json as json
 app.use(methodOverride());
 
-require('./app/inboud-routes.js')(app);
+require('./app/routes/inboud-routes.js')(app);
 global._ = _; //lodash
 
 var deepstreamClient = deepstream(config.deepstream).login();
