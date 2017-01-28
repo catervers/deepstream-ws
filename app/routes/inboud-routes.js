@@ -37,13 +37,17 @@ module.exports = function (app) {
         });
     });
 
-    /** Emit an event on a channel **/
-    app.post('/emit/channel/optional', function(req, res) {
-        Deepstream.emit(req).then( function (response) {
+
+    app.post('/emit/channel/:optional', function(req, res) {
+        Deepstream.subscribe(req).then( function (response) {
             res.json(response);
         }).catch(function (err) {
             res.json(err);
         });
+    });
+
+    app.get('/subscriptions', function (res) {
+      return res(Deepstream.getActiveChannels());
     });
 
 };

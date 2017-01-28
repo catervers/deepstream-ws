@@ -1,11 +1,13 @@
 /**
  * Created by andream16 on 28.01.17.
  */
+var deepstreamChannels = require('/server');
 
 /** Methods available to external usage **/
-exports.subscribe   = subscribe;
-exports.emit        = emit;
-exports.unsubscribe = unsubscribe;
+exports.subscribe         = subscribe;
+exports.emit              = emit;
+exports.unsubscribe       = unsubscribe;
+exports.getActiveChannels = getActiveChannels;
 
 /** Function Called to subscribe to an event **/
 function subscribe(channel) {
@@ -18,6 +20,7 @@ function subscribe(channel) {
               return rej({err : err});
             }
             console.log( channel+": "+payload );
+            deepstreamChannels.channels.push(channel);
             return res({success: 'Successfully Subscribed to '+ channel});
         });
     });
@@ -48,7 +51,13 @@ function unsubscribe(event) {
             if(err){
                 return rej({err: err})
             }
+            deepstreamChannels.channels.delete(channel);
             return res({success: response})
         });
     });
+}
+
+/** Function Called to get all active channels **/
+function getActiveChannels() {
+   return JSON.stringify(deepstreamChannels.channels);
 }

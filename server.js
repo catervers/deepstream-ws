@@ -17,8 +17,9 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));  // parse applica
 app.use(methodOverride());
 
 require('./app/routes/inboud-routes.js')(app);
-global._ = _; //lodash
+global._        = _; //lodash
 
+var channels = [];
 var deepstreamClient = deepstream(config.deepstream).login();
 
 // Listen
