@@ -20,17 +20,17 @@ var Deepstream = require('../deepstream/deepstream.js');
 module.exports = function (app) {
 
     /** Subscribing to a channel **/
-    app.post('/subscriptions/:channel/:optional', function(req, res) {
+    app.post('/subscriptions/:channel/:optional?', function(req, res) {
         res.json(Deepstream.subscribe(req.params.channel, req.params.optional));
     });
 
     /** Unsubscribing to a channel **/
-    app.delete('/subscriptions/:channel/:optional', function(req, res) {
+    app.delete('/subscriptions/:channel/:optional?', function(req, res) {
         res.json(Deepstream.unsubscribe(req.params.channel, req.params.optional));
     });
 
     /** Emit an event on a channel **/
-    app.post('/emit/:channel/:optional', function(req, res) {
+    app.post('/emit/:channel/:optional?', function(req, res) {
         res.json(Deepstream.emit(req.params.channel, req.params.optional, req.body));
     });
 

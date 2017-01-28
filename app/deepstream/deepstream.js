@@ -25,6 +25,10 @@ function pathBuilder(channel, optional) {
 /** Function Called to subscribe to an event **/
 function subscribe(channel, optional) {
     var path = pathBuilder(channel, optional);
+    var index = deepstreamChannels.indexOf(path);
+    if (index < 0) {
+        return "already subscribed to: " + path;
+    }
     deepstreamChannels.push(path);
     deepstreamClient.event.subscribe(path, function (payload) {
         console.log(path + ": " + JSON.stringify(payload));
