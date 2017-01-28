@@ -26,10 +26,10 @@ function pathBuilder(channel, optional) {
 function subscribe(channel, optional) {
     var path = pathBuilder(channel, optional);
     deepstreamChannels.push(path);
-    deepstreamClient.channel.subscribe(path, function (payload) {
-        console.log(path + ": " + payload);
+    deepstreamClient.event.subscribe(path, function (payload) {
+        console.log(path + ": " + JSON.stringify(payload));
     });
-    console.log("subscribed to: " + path);
+    return "subscribed to: " + path;
 }
 
 /** Function Called to subscribe to an event **/
@@ -39,14 +39,15 @@ function unsubscribe(channel, optional) {
     if (index >= 0) {
         deepstreamChannels.splice(index, 1);
     }
-    deepstreamClient.channel.unsubscribe(path);
-    console.log("unsubscribed from: " + path);
+    deepstreamClient.event.unsubscribe(path);
+    return "unsubscribed from: " + path;
 }
 
 /** Function Called to emit to an event **/
-function emit(path, payload) {
+function emit(channel, optional, payload) {
+    var path = pathBuilder(channel, optional);
     deepstreamClient.event.emit(path, payload);
-    console.log("emitted: "+path + ": " + payload);
+    return "emitted: "+path + ": " + payload;
 }
 
 /** Function Called to get all active channels **/

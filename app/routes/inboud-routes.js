@@ -21,29 +21,17 @@ module.exports = function (app) {
 
     /** Subscribing to a channel **/
     app.post('/subscriptions/:channel/:optional', function(req, res) {
-        Deepstream.subscribe(req.params.channel, req.params.optional).then( function (response) {
-          res.json(response);
-        }).catch(function (err) {
-           res.json(err);
-        });
+        res.json(Deepstream.subscribe(req.params.channel, req.params.optional));
     });
 
     /** Unsubscribing to a channel **/
-    app.delete('/subscriptions/:channel/:optional', function(channel, res) {
-        Deepstream.unsubscribe(channel).then( function (response) {
-            res.json(response);
-        }).catch(function (err) {
-            res.json(err);
-        });
+    app.delete('/subscriptions/:channel/:optional', function(req, res) {
+        res.json(Deepstream.unsubscribe(req.params.channel, req.params.optional));
     });
 
     /** Emit an event on a channel **/
     app.post('/emit/:channel/:optional', function(req, res) {
-        Deepstream.subscribe(req.params.channel, req.params.optional).then( function (response) {
-            res.json(response);
-        }).catch(function (err) {
-            res.json(err);
-        });
+        res.json(Deepstream.emit(req.params.channel, req.params.optional, req.body));
     });
 
     /** get All Active Channels **/
