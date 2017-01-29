@@ -6,10 +6,10 @@ This project is the result of a boring saturday evening, it's offered as is.
 
 ## Basic concepts
 Deepstream provides and easy way to do publish-subscribe, this connector uses the concept of **path**,
- there's some examples of valid values:
+ there's some examples of valid path values:
 - ```notifications```
-- ```news\tech```
-- ```clients\5gVH32```
+- ```news/tech```
+- ```clients/5gVH32```
 
 Notice how the second value is optional
 
@@ -26,7 +26,7 @@ Notice how the second value is optional
 `POST /subscriptions/{pathName}` : *"subscribed to: pathName"*
 ### Unsubscribe from a path
 `DELETE /unsubscribe/{pathName}` : *"unsubscribed from: pathName"*
-### Emit an event on a path (the body will be the payload)
+### Emit an event on a path (the post body will be the payload)
 `POST /emit/{pathName}` : *"emitted: pathName"*
 ### Get All Active paths
 `GET /subscriptions` : *["channel1", "channel2"]*
